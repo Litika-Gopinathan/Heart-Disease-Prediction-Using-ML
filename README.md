@@ -1,7 +1,6 @@
 # Heart-Disease-Prediction-Using-ML
 
 Dataset used:
-https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression?resource=download
-
+   https://www.kaggle.com/datasets/charankakaraparthi/heart-dissease
 Proposed Models:
    SVM
