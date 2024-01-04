@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width",initial-scale="1.0">
+        <title>Prediction</title>
+        <style>
+        html { 
+            font-size:100%; 
+        }
+        *{
+            padding:0;
+            margin:0;
+        }
+        
+        .background{
+            width:100%;
+            height:100vh;
+            background-position: center;
+            background-size: cover;
+            background-image: linear-gradient(0deg,rgba(0, 0, 0, 1.0),rgba(0, 0, 0, 0.7)),url(/static/bg.jpg);
+        
+        }
+        
+        div.background p{
+            padding:50px;
+            color:white;
+            font-size: 100px;
+            font-family: fantasy;
+            line-height: 90px;
+            height: 45vh;
+        }
+        
+        .img_deg{
+            float:right;
+            width: 50%;
+            height:100vh;
+            max-width: 100%;
+        }
+        
+        .pill{
+            color: whitesmoke;
+            font-size: 25px;
+            font-family: 'Trebuchet MS',sans-serif;
+            font-weight: bolder;
+            position: relative;
+            left:160px;
+            padding: 0.5em 1em;
+            margin:0.25em;
+            border-radius:1em;
+            border:none;
+            outline:none;
+            background: red;
+            cursor:pointer;
+        }
+        
+        .pill:not(.pill--selected):hover{
+            color: red;
+            background: whitesmoke;
+        
+        }
+        
+        .pill--selected{
+            color:red;
+            background:whitesmoke;
+        }
+        
+        .pill--selected:hover{
+            color:whitesmoke;
+            background: red;
+        }
+        
+        div.container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 1.0);
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.543);
+            text-align: center;
+        }
+        
+        div.container h1{
+            font-size: 60px;
+            color: whitesmoke;
+            padding: 5px;
+        }
+        
+        .container label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 25px ;
+            color: whitesmoke;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 20px;
+            flex: 2;
+            width: auto;
+            margin-left: 10px;
+        }
+        
+        #result {
+            margin-top: 20px;
+            margin-bottom:20px;
+            font-size:30px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            padding: 20px;
+        }
+        
+        div.container button{
+            color:whitesmoke;
+            background: red;
+            font-size:25px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        div.container button:not(.btn--selected):hover{
+            color: red;
+            background: whitesmoke;
+        
+        }
+        
+        .btn--selected{
+            color:red;
+            background:whitesmoke;
+        }
+        
+        .btn--selected:hover{
+            color:whitesmoke;
+            background: red;
+        }
+        
+        .input-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        </style>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+    
+    <div class="background">
+      <div class="overlay">
+        <img class="img_deg" src="/static/heart.png"/>
+        <p>Heart Disease<br> 
+          Prediction &<br>
+          Analysis</p><button class="pill" id="myButton" type="button">PREDICT</button>
+    
+      </div>
+    </div>
+<section>
+<div class="container">
+  <h1>Heart Disease Prediction</h1><br>
+  <form id="prediction-form" action="{{ url_for('predict') }}" method="post">
+        <div class="input-row">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>&nbsp; &nbsp;
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select><br><br> &nbsp; &nbsp;
+      
+  </div>
+  
+  <div class="input-row">
+      <label for="cp">Type of Chest Pain:</label>
+      <select id="cp" name="cp" required>
+          <option value="0">Asymptomatic</option> 
+          <option value="1">Atypical Angina</option>
+          <option value="2">Non-anginal pain</option>
+          <option value="3">Typical angina </option>
+      </select><br><br> &nbsp; &nbsp;
+
+      <label for="trestbps">Resting blood pressure (mmHg):</label>
+      <input type="number" id="trestbps" name="trestbps" required>
+  </div>
+
+      <div class="input-row">
+      <label for="chol">Total Cholesterol (mg/dL):</label>
+      <input type="number" id="chol" name="chol" required>&nbsp; &nbsp;
+
+      <label for="fbs">Fasting blood sugar:</label>
+      <select id="fbs" name="fbs" required>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+      </select><br><br> &nbsp; &nbsp;          
+    </div>
+
+      <div class="input-row">
+      <label for="restecg">Resting Electrocardiographic Results:</label>
+      <select id="restecg" name="restecg" required>
+          <option value="0">Left Ventricular Hypertrophy</option>
+          <option value="1">Normal</option>
+          <option value="2">ST-T abnormality</option>
+      </select><br><br>
+      <label for="thalach">Maximum Heart Rate Achieved:</label>
+      <input type="number" id="thalach" name="thalach" required>
+       &nbsp; &nbsp;
+
+      </div>      
+      <div class="input-row">
+      <label for="exang"> Exercise induced angina :</label>
+      <select id="exang" name="exang" required>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select> &nbsp; &nbsp;
+
+      <label for="oldpeak">ST depression induced by exercise relative to rest:</label>
+      <input type="text" id="oldpeak" name="oldpeak" required><br><br>
+      </div>
+
+      <div class="input-row">       
+        <label for="slope">Slope of the peak exercise ST segment:</label>
+        <select id="slope" name="slope" required>
+            <option value="0">Downsloping</option>
+            <option value="1">Flat</option>
+            <option value="2">Upsloping</option>
+        </select> &nbsp; &nbsp;
+
+      <label for="ca">Number of major vessels:</label>
+      <select id="ca" name="ca" required>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select><br><br>
+      </div>
+
+      <div class="input-row">
+      <label for="thal">Thalassemia:</label>
+      <select id="thal" name="thal" required>
+        <option value="0">NULL</option>
+        <option value="1">Fixed Defect</option>
+        <option value="2">Normal Blood Flow</option>
+        <option value="3">Reversible Defect</option>
+    </select><br><br>
+    
+      </div>
+
+      <!--<input type="submit"> -->
+
+      <button type="submit">Predict</button>
+    </form> 
+  </form>
+
+  <p id="result" style="color:red;">{{ prediction }}</p>
+</div>
+</section>
+<script>
+    // document.querySelectorAll(".pill").forEach(pill => {
+    //     pill.addEventListener("click", () => pill.classList.toggle("pill--selected"));
+    // })
+
+    //hide the table
+    document.getElementById("prediction-form").style.display = "none";
+
+    //show the table when the button is clicked and scroll to the bottom with an animation
+    document.getElementById("myButton").onclick = function() {
+        document.getElementById("prediction-form").style.display = "block";
+        document.getElementById("prediction-form").scrollIntoView({behavior: "smooth"});
+    };
+</script>
+
+</body>
+</html>
