@@ -2,8 +2,8 @@
 
 Dataset used:
 
-   https://www.kaggle.com/datasets/charankakaraparthi/heart-dissease
+      https://www.kaggle.com/datasets/charankakaraparthi/heart-dissease
    
 Proposed Models:
 
-   SVM
+      SVM
