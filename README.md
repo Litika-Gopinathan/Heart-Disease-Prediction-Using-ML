@@ -6,4 +6,4 @@ Dataset used:
    
 Proposed Models:
 
-      SVM
+      Logistic Regression
