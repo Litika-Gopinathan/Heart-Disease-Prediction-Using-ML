@@ -20,7 +20,6 @@ for col in data.columns:
 
 cate_val.remove('sex')
 cate_val.remove('fbs')
-cate_val.remove('restecg')
 cate_val.remove('exang')
 cate_val.remove('target')
 
