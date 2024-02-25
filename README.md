@@ -6,4 +6,4 @@ Dataset used:
    
 Proposed Models:
 
-      Logistic Regression
+      Logistic Regression (Accuracy : 86%)
